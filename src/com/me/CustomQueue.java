@@ -9,6 +9,8 @@ public class CustomQueue {
         this.items = new Item[10];
     }
 
+    // this is new line
+
     public void push(Item item) {
         items[counter++] = item;
     }
