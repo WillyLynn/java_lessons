@@ -1,10 +1,12 @@
 package com.me;
 
-public class Item {
+import java.util.Objects;
 
-    String name;
-    int purchaseDate;
-    int quantity;
+public class Item implements Comparable<Item>{
+
+    public String name;
+    public int purchaseDate;
+    public int quantity;
 
     public Item() {
 
@@ -23,5 +25,47 @@ public class Item {
                 ", purchaseDate=" + purchaseDate +
                 ", quantity=" + quantity +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Item o) {
+        return this.purchaseDate - o.purchaseDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return purchaseDate == item.purchaseDate;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(purchaseDate);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(int purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

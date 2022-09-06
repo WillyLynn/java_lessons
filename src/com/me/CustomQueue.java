@@ -5,8 +5,8 @@ public class CustomQueue {
     int counter;
     int pointer;
 
-    public CustomQueue() {
-        this.items = new Item[10];
+    public CustomQueue(int size) {
+        this.items = new Item[size];
     }
 
     // this is new line

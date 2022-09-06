@@ -1,9 +1,20 @@
 package com.me;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import com.me.repository.ItemRepository;
+import com.me.repository.impl.ItemRepositoryFromDB;
+import com.me.repository.impl.ItemRepositoryImpl;
+import com.me.service.SaleService;
+import com.me.service.impl.SaleServiceImpl;
 
+import java.util.*;
+
+class CustomComparator implements Comparator<Item> {
+
+    @Override
+    public int compare(Item o1, Item o2) {
+        return o1.purchaseDate - o2.purchaseDate;
+    }
+}
 public class Crud {
     // item 1 -> purchase date 23/08/2022 - quantity 20 - $10
     // item 1 -> purchase date 30/08/2022 - quantity 10 - $11
@@ -13,17 +24,21 @@ public class Crud {
 
     public static void main(String[] args) {
 
-        Item item1FirstLog = new Item("Item1 First Log", 100,20 ); // 5
-        Item item1SecondLog = new Item("Item1 Second Log", 200,10 );
+        ItemRepository itemRepository = new ItemRepositoryImpl();
 
+        Item[] items = itemRepository.getInventoryList();
+//        System.out.println(items.length);
+//
+//        Collections.sort(testing, Comparator.comparingInt(o -> o.purchaseDate));
+//
+       // Comparator<Item> customComparator = (o1, o2) -> o1.purchaseDate.com
 
-        CustomQueue queue = new CustomQueue();
-        // purchase
-        queue.push(item1FirstLog);
-        queue.push(item1SecondLog);
+        CustomQueue queue = new CustomQueue(items.length);
 
-        queue.print();
-        System.out.println("=====================");
+        for (Item item :
+                items) {
+            queue.push(item);
+        };
 
         System.out.println("selling.......");
         // first sell 15
@@ -31,24 +46,23 @@ public class Crud {
 
         // To refactor to a service (Class)
 
-        int sellingQuantity = 15;
-        int tempQty = 0;
+        SaleService saleService = new SaleServiceImpl(queue);
 
-        Item item = queue.pop();
-        item.quantity -= sellingQuantity;
-        System.out.println(item);
+        saleService.sell(10);
+        saleService.sell(20);
 
-        sellingQuantity = 11;
-        if (sellingQuantity > item.quantity) {
-            tempQty = sellingQuantity - item.quantity;
-            item.quantity -= item.quantity;
-        }
-
-        item = queue.pop();
-        System.out.println(item);
-        item.quantity -= tempQty;
-
-        System.out.println(item);
+        // sccanner
+        // menu 0
+        // enter selling qty: 20
+        // enter selling qty: 10
+        /*
+         * SaleService saleService = new SaleServiceImpl();
+         *
+         * saleService.sell(10);
+         * saleService.sell(15);
+         *
+         * sout(queue);
+        */
 
 
 
@@ -69,7 +83,6 @@ public class Crud {
 
 
         // to add to Queue
-
 
     }
 }
