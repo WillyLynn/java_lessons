@@ -40,6 +40,11 @@ public class Crud {
             queue.push(item);
         };
 
+        for (Item item :
+                items) {
+            System.out.println(item);
+        };
+
         System.out.println("selling.......");
         // first sell 15
         // second sell 11
@@ -49,7 +54,12 @@ public class Crud {
         SaleService saleService = new SaleServiceImpl(queue);
 
         saleService.sell(10);
-        saleService.sell(20);
+        //saleService.sell(20);
+
+        for (Item item :
+                items) {
+            System.out.println(item);
+        };
 
         // sccanner
         // menu 0
